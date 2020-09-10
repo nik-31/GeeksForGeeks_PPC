@@ -1,0 +1,10 @@
+//User function Template for C++
+
+
+int sumUnderModulo(long long a,long long b)
+{
+    int M=1000000007;
+    int x=(a%M+b%M)%M;
+    return x;
+    //your code here
+}
