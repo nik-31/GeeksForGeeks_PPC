@@ -1,0 +1,10 @@
+// User function Template for C++
+
+// Should return absolute value of I
+// You need to complete this function
+int absolute(int I) {
+    // Your code here
+    if(I<0)
+        return -1*I;
+    return I;
+}
