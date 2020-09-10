@@ -1,0 +1,11 @@
+//User function Template for C++
+
+
+//You need to complete this function
+double cToF(int C)
+{
+    double d;
+    double m=C*1.8;
+    d=floor(m+32);
+    return d;
+}
