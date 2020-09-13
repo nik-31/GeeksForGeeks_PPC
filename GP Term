@@ -1,0 +1,6 @@
+double termOfGP(int A,int B,int N)
+{
+    double cr;
+    cr = (double)B/A;
+    return (double)A*pow(cr,N-1);
+}
