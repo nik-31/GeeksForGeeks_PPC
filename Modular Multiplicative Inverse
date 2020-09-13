@@ -1,0 +1,11 @@
+int modInverse(int a, int m)
+{
+    int i;
+    for(i=1;i<INT32_MAX;i++){
+        if((a*i)%m==1)
+            break;
+        if(i>m)
+            return -1;
+    }
+    return i;
+}
