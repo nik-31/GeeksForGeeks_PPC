@@ -1,0 +1,13 @@
+int remove_duplicate(int A[],int N)
+{
+    if(N==0 || N==1)
+        return N;
+    int j=0;
+    for(int i=1;i<N;i++){
+        if(A[i-1]!=A[i]){
+            A[j++]=A[i-1];
+        }
+    }
+    A[j++]=A[N-1];
+    return j;
+}
