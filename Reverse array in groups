@@ -1,0 +1,15 @@
+vector<long long> reverseInGroups(vector<long long> mv, int n, int k){
+    int i=0;
+    bool fl=false;
+    while(i<n){
+        if(i+k>n){
+            k=n-i;
+            fl=true;
+        }
+        reverse(mv.begin()+i,mv.begin()+k+i);
+        if(fl==true)
+            break;
+        i=i+k;
+    }
+    return mv;
+}
