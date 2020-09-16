@@ -1,0 +1,12 @@
+// Function to find the transition point
+int transitionPoint(int arr[], int n) {
+    // code here
+    int t=-1;
+    for(int i=0;i<n;i++){
+        if(arr[i]==1){
+            t=i;
+            break;
+        }
+    }
+    return t;
+}
