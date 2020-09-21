@@ -1,0 +1,21 @@
+/* The function should return the index of any
+   peak element present in the array */
+
+// arr: input array
+// n: size of array
+int findPeakElement(int A[], int low, int high, int n)
+{
+	int mid = (low + high) / 2;
+	if ((mid == 0 || A[mid - 1] <= A[mid]) &&
+		(mid == n - 1 || A[mid + 1] <= A[mid]))
+		return mid;
+
+	if (mid - 1 >= 0 && A[mid - 1] > A[mid])
+		return findPeakElement(A, low, mid - 1, n);
+
+	return findPeakElement(A, mid + 1, high, n);
+}
+int peakElement(int arr[], int n)
+{
+    return findPeakElement(arr,0,n-1,n);
+}
