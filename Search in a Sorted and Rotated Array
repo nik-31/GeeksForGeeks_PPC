@@ -1,0 +1,24 @@
+// vec : given vector of elements
+// K : given value whose index we need to find 
+int search(vector<int> arr,int l,int r,int k){
+    if(l>r)
+        return -1;
+    int mid=(l+r)/2;
+    if(arr[mid]==k)
+        return mid;
+    
+    if(arr[l]<=arr[mid]){
+        if (k >= arr[l] && k <= arr[mid]) 
+            return search(arr, l, mid - 1, k); 
+
+        return search(arr, mid + 1, r, k); 
+    }
+    
+    if (k >= arr[mid] && k <= arr[r]) 
+        return search(arr, mid + 1, r, k); 
+  
+    return search(arr, l, mid - 1, k); 
+}
+int Search(vector<int> vec, int K) {
+    return search(vec,0,vec.size()-1,K);
+}
