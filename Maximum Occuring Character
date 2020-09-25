@@ -1,0 +1,26 @@
+
+// Function to get maximum occuring 
+// character in given string str
+char getMaxOccuringChar(char* str)
+{
+    unordered_map<char,int>h;
+    for(int i=0;str[i]!='\0';i++){
+        h[str[i]]++;
+    }
+    int max=INT_MIN;
+    char s;
+    for(auto i:h){
+        if(i.second>=max){
+            s=i.first; 
+            max=i.second;
+        }
+    }
+    for(auto i:h){
+        if(i.second==max){
+            if(s>i.first){
+                s=i.first;
+            }
+        }
+    }
+    return s;
+}
