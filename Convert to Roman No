@@ -1,0 +1,15 @@
+/*you are required to complete 
+this function*/
+
+// n :given number that you are require to convert
+string convertToRoman(int n) 
+{
+    int val[]={1000,900,500,400,100,90,50,40,10,9,5,4,1};
+    string symbol[]={"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+    for(int i=0;i<13;i++){
+        if(n>=val[i]){
+            return symbol[i]+convertToRoman(n-val[i]);
+        }
+    }
+    return "";
+}
