@@ -1,0 +1,10 @@
+/*You are required to complete this method */
+int remainderWith7(string n)
+{
+    int res = 0; 
+  
+    for (int i = 0; i < n.length(); i++) 
+         res = (res*10 + (int)n[i] - '0') %7; 
+  
+    return res; 
+}
