@@ -1,0 +1,20 @@
+/* The function should return position where the target string 
+   matches the string str
+Your are required to complete this method */
+int strstr(string s, string x)
+{
+    int j,i;
+    for(i=0;i<s.length();i++){
+        bool fl=false;
+        int t=i;
+        for(j=0;j<x.length();j++){
+            if(s[t]!=x[j]){
+                break;
+            }
+            t++;
+        }
+        if(j==x.length())
+            return i;
+    }
+    return -1;
+}
