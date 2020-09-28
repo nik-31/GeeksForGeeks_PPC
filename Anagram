@@ -1,0 +1,19 @@
+/*  Function to check if two strings are anagram
+*   c, d: input string
+*/
+bool isAnagram(string c, string d){
+    if(c.length()!=d.length())
+        return false;
+    unordered_map<char,int>m;
+    for(int i=0;i<c.length();i++){
+        m[c[i]]++;
+    }
+    for(int i=0;i<d.length();i++){
+        m[d[i]]--;
+    }
+    for(auto i:m){
+        if(i.second!=0)
+            return false;
+    }
+    return true;
+}
