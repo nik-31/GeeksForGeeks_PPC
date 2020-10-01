@@ -1,0 +1,19 @@
+string ExcelColumn(int n)
+{
+    string str; 
+    int i = 0;
+  
+    while (n > 0) { 
+        int rem = n % 26; 
+        if (rem == 0) { 
+            str += 'Z'; 
+            n = (n / 26) - 1; 
+        }else{ 
+            str += (rem - 1) + 'A'; 
+            n = n / 26; 
+        } 
+    } 
+  
+    reverse(str.begin(), str.end()); 
+    return str; 
+}
