@@ -1,0 +1,12 @@
+//User function Template for C++
+
+// function to conver given N Gray to Binary
+int grayToBinary(int n)
+{
+    int inv = 0; 
+  
+    for( ; n; n=n>>1) 
+        inv ^= n; 
+        
+    return inv;
+}
