@@ -1,0 +1,12 @@
+//User function Template for C++
+
+/*  Function to find the first position with different bits
+*   This function returns the position with different bit
+*/
+int getRightmostSetBit(int n){
+    return log2(n & -n) +1;
+}
+int posOfRightMostDiffBit(int m, int n)
+{
+    return getRightmostSetBit(m^n);
+}
