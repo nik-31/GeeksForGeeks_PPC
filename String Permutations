@@ -1,0 +1,18 @@
+void permute(string s,int i,vector<string> &ans){
+        if(i==s.length()){
+            ans.push_back(s);
+            return;
+        }else{
+            for(int j=i;j<s.length();j++){
+                swap(s[i],s[j]);
+                permute(s,i+1,ans);
+            }
+        }
+    }
+vector<string> permutation(string s)
+{
+    vector<string> ans;
+    sort(s.begin(),s.end());
+    permute(s,0,ans);
+    return ans;
+}
