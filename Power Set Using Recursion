@@ -1,0 +1,19 @@
+void powerSetUtil(string s, int index, string curr, vector<string> &ans){
+    int n = s.length();
+
+    // base case
+    if (index == n) {
+        ans.push_back(curr);
+        return ;
+    }
+
+    powerSetUtil(s, index + 1, curr + s[index], ans);
+    powerSetUtil(s, index + 1, curr, ans);
+}
+vector <string> powerSet(string s)
+{
+    vector<string> ans;
+    powerSetUtil(s, 0, "", ans);
+    
+    return ans;
+}
