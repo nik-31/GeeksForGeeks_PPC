@@ -1,0 +1,54 @@
+/* structure for a node */
+/*
+struct Node
+{
+  int data;
+  struct Node *next;
+  
+  Node(int x){
+      data = x;
+      next = NULL;
+  }
+  
+};
+ */
+ 
+// This function should return head of
+// the modified list
+Node *sortedInsert(Node* head_ref, int x)
+{
+    Node* new_node = new Node(x);
+    Node* current = head_ref;  
+      
+    // Case 1 of the above algo  
+    if (current == NULL)  
+    {  
+        new_node->next = new_node;  
+        head_ref = new_node;  
+    }  
+      
+    // Case 2 of the above algo  
+    else if (current->data >= new_node->data)  
+    {  
+        /* If value is smaller than head's value then  
+        we need to change next of last node */
+        while(current->next != head_ref)  
+            current = current->next;  
+        current->next = new_node;  
+        new_node->next = head_ref;  
+        head_ref = new_node;  
+    }  
+      
+    // Case 3 of the above algo  
+    else
+    {  
+        /* Locate the node before the point of insertion */
+        while (current->next!= head_ref &&  
+            current->next->data < new_node->data)  
+        current = current->next;  
+      
+        new_node->next = current->next;  
+        current->next = new_node;  
+    }  
+    return head_ref;
+}
