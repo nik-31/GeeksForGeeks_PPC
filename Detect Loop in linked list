@@ -1,0 +1,29 @@
+/*
+
+struct Node
+{
+    int data;
+    struct Node *next;
+    Node(int x) {
+        data = x;
+        next = NULL;
+    }
+
+*/
+
+bool detectLoop(Node* head)
+{
+    Node *slow=head,*fast=head;
+    Node *temp=head;
+    while(temp!=NULL){
+        slow=slow->next;
+        fast=fast->next->next;
+        if(fast==NULL || fast->next==NULL )
+            return false;
+        if(slow==fast){
+            return true;
+        }
+        temp=temp->next;
+    }
+    return false;
+}
