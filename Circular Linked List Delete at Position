@@ -1,0 +1,36 @@
+//User function Template for C++
+
+/*
+struct Node
+{
+    int data;
+    Node * next;
+    Node (int x)
+    {
+        data=x;
+        next=NULL;
+    }
+        
+};
+*/
+
+Node * deleteAtPosition(Node *head,int pos)
+{
+    if(pos==1){
+        Node *ptr=head;
+        while(ptr->next!=head){
+            ptr=ptr->next;
+        }
+        head=head->next;
+        ptr->next=head;
+        return head;
+    }
+    Node *ptr=head;
+    while(pos>2){
+        ptr=ptr->next;
+        pos--;
+    }
+    Node *lk=ptr->next->next;
+    ptr->next=lk;
+    return head;
+}
