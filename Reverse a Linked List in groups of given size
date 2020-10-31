@@ -1,0 +1,56 @@
+/*
+  Reverse a linked list
+  The input list will have at least one element  
+  Return the node which points to the head of the new LinkedList
+  Node is defined as 
+    struct node
+    {
+        int data;
+        struct node* next;
+    
+        node(int x){
+            data = x;
+            next = NULL;
+        }
+    
+    }*head;
+*/
+
+struct node *reverse (struct node *head, int k)
+{ 
+    stack<node*> mystack; 
+    struct node* current = head; 
+    struct node* prev = NULL; 
+  
+    while (current != NULL) { 
+  
+        // Terminate the loop whichever comes first 
+        // either current == NULL or count >= k 
+        int count = 0; 
+        while (current != NULL && count < k) { 
+            mystack.push(current); 
+            current = current->next; 
+            count++; 
+        } 
+  
+        // Now pop the elements of stack one by one 
+        while (mystack.size() > 0) { 
+  
+            // If final list has not been started yet. 
+            if (prev == NULL) { 
+                prev = mystack.top(); 
+                head = prev; 
+                mystack.pop(); 
+            } else { 
+                prev->next = mystack.top(); 
+                prev = prev->next; 
+                mystack.pop(); 
+            } 
+        } 
+    } 
+  
+    // Next of last element will point to NULL. 
+    prev->next = NULL; 
+  
+    return head;
+}
