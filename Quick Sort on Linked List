@@ -1,0 +1,66 @@
+/* a node of the singly linked list 
+struct node
+{
+    int data;
+    struct node *next;
+    
+    node(int x){
+        data = x;
+        next = NULL;
+    }
+}; */
+
+//you have to complete this function
+node * getTail(node *head){
+    while(head && head->next){
+        head=head->next;
+    }
+    return head;
+}
+node* partition(node *head,node *end, node **newHead,node **newEnd){
+    node *pivot=end;
+    node *prev=NULL, *cur=head, *tail=pivot;
+    while(cur!=pivot){
+        if(cur->data<pivot->data){
+            if((*newHead)==NULL)
+                (*newHead)=cur;
+            prev=cur;
+            cur=cur->next;
+        }else{
+            if(prev)
+                prev->next=cur->next;
+            node *temp=cur->next;
+            cur->next=NULL;
+            tail->next=cur;
+            tail=cur;
+            cur=temp;
+        }
+    }
+    if((*newHead)==NULL)
+        (*newHead)=pivot;
+    (*newEnd)=tail;
+    return pivot;
+}
+node* quickSortRecur(node *head, node *end){
+    if(!head || head==end)
+        return head;
+    node *newHead=NULL,*newEnd=NULL;
+    node *pivot=partition(head, end, &newHead, &newEnd);
+    
+    if(newHead!=pivot){
+        node *tmp=newHead; 
+        while(tmp->next!=pivot) 
+            tmp=tmp->next; 
+        tmp->next=NULL; 
+  
+        newHead=quickSortRecur(newHead, tmp);
+        tmp=getTail(newHead); 
+        tmp->next=pivot; 
+    }
+    pivot->next=quickSortRecur(pivot->next, newEnd);
+    return newHead; 
+}
+void quickSort(struct node **headRef) {
+    (*headRef)=quickSortRecur(*headRef,getTail(*headRef));
+    return;
+}
