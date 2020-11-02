@@ -1,0 +1,30 @@
+/* a Node of the doubly linked list */
+
+
+/*
+struct Node
+{
+    int data;
+    struct Node *next;
+    struct Node *prev;
+    
+    Node(int x){
+        data = x;
+        next = NULL;
+        prev = NULL;
+    }
+};
+*/
+Node* partition(Node *l, Node *h){
+    int x=h->data;
+    Node *i=l->prev;
+    for(Node *j=l;j!=h;j=j->next){
+        if(j->data<=x){
+            i=(i==NULL)?l:i->next;
+            swap(&(i->data),&(j->data));
+        }
+    }
+    i=(i==NULL)?l:i->next;
+    swap(&(i->data),&(h->data));
+    return i;
+}
