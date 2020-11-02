@@ -1,0 +1,47 @@
+
+/*  the node structure is as follows
+
+struct Node {
+    int data;
+    Node *next;
+    Node *arb;
+
+    Node(int x) {
+        data = x;
+        next = NULL;
+        arb = NULL;
+    }
+};
+*/
+
+// Should return the head of the copied linked list the
+// output will be 1 if successfully copied
+Node *copyList(Node *head) {
+    Node *curr=head, *temp;
+    
+    while(curr){
+        temp=curr->next;
+        
+        curr->next= new Node(curr->data);
+        curr->next->next=temp;
+        curr=temp;
+    }
+    
+    curr=head;
+    while(curr){
+        if(curr->next)
+            curr->next->arb=curr->arb? curr->arb->next:curr->arb;
+        curr=curr->next? curr->next->next:curr->next;
+    }
+    
+    Node *original=head, *copy=head->next;
+    temp=copy;
+    
+    while(original && copy){
+        original->next=original->next? original->next->next:original->next;
+        copy->next=copy->next? copy->next->next:copy->next;
+        original=original->next;
+        copy=copy->next;
+    }
+    return temp;
+}
