@@ -1,0 +1,16 @@
+// Function to store Next larger elements
+
+vector <long long> nextLargerElement(long long arr[], int n){
+    vector<long long> ans(n,-1);
+    stack<long long> mystack;
+    
+    for(int i=0; i<n; ++i){
+        while(!mystack.empty() && arr[i] > arr[mystack.top()]){
+            int a = mystack.top();
+            mystack.pop();
+            ans[a] = arr[i];
+        }
+        mystack.push(i);
+    }
+    return ans;
+}
