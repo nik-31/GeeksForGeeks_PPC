@@ -1,0 +1,31 @@
+//User function Template for C++
+
+//Back-end complete function Template for C++
+
+long maximum_sum(vector<int>v,int k)
+{
+    int n=v.size();
+    unordered_map<int,int> m;
+    for(int i=0;i<n;i++){
+        m[v[i]]++;
+    }
+    long sum=0;
+    priority_queue<pair<int,int>> p;
+    
+    for(auto i:m){
+        p.push({i.second,i.first});
+    }
+    
+    while(k--){
+        pair<int,int> pr;
+        pr=p.top();
+        p.pop();
+        pr.first--;
+        sum+=pr.second;
+        if(pr.first){
+            p.push(pr);
+        }
+    }
+    
+    return sum;
+}
