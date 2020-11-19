@@ -1,0 +1,20 @@
+//User function Template for C++
+
+queue<ll> modifyQueue(queue<ll> q, int k)
+{
+    stack<ll>s;
+    while(k--){
+        s.push(q.front());
+        q.pop();
+    }
+    queue<ll> ans;
+    while(!s.empty()){
+        ans.push(s.top());
+        s.pop();
+    }
+    while(!q.empty()){
+        ans.push(q.front());
+        q.pop();
+    }
+    return ans;
+}
