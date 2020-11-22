@@ -1,0 +1,15 @@
+// your task is to complete this function
+int maxDistance(int arr[], int n)
+{
+    map<int,int> m;
+    int dis=0;
+    for(int i=0;i<n;i++){
+        if(m.find(arr[i])!=m.end()){
+            int x=m.find(arr[i])->second;
+            dis=max(dis,i-x);
+        }else{
+            m[arr[i]]=i;
+        }
+    }
+    return dis;
+}
