@@ -1,0 +1,21 @@
+//User function template for C++
+
+// arr : 1st given array
+// brr : 2nd given array
+// n : size of both the arrays
+
+bool check(vector<ll> arr, vector<ll> brr, int n) {
+    //code here
+    unordered_map<ll,ll> m;
+    for(int i=0;i<n;i++){
+        m[arr[i]]++;
+    }
+    for(int i=0;i<n;i++){
+        m[brr[i]]--;
+    }
+    for(auto i:m){
+        if(i.second!=0)
+            return false;
+    }
+    return true;
+}
