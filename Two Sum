@@ -1,0 +1,20 @@
+// User function template for C++
+
+// A[] : the input array of positive integers
+// N : size of the array arr[]
+// X : the required sum
+bool keypair(vector<int> A, int N, int X)
+{
+    sort(A.begin(),A.end());
+    int i=0;
+    int j=N-1;
+    while(i<j){
+        if(A[i]+A[j]<X)
+            i++;
+        else if(A[i]+A[j]>X)
+            j--;
+        else
+            return true;
+    }
+    return false;
+}
