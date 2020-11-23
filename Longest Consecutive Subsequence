@@ -1,0 +1,21 @@
+// function to find longest consecutive subsequence
+// n : size of array
+// arr[] : input array
+int findLongestConseqSubseq(int arr[], int n)
+{
+    unordered_set<int>s;
+    for(int i=0;i<n;i++){
+        s.insert(arr[i]);
+    }
+    int dis=0;
+    int ans=0;
+    for(int i=0;i<n;i++){
+        dis=0;
+        while(s.find(arr[i])!=s.end()){
+            ++arr[i];
+            ++dis;
+        }
+        ans=max(ans,dis);
+    }
+    return ans;
+}
