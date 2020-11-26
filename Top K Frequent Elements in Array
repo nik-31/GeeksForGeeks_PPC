@@ -1,0 +1,19 @@
+//User function Template for C++
+bool comp(pair<int,int> a,pair<int,int> b){
+    if(a.second==b.second)
+        return a.first>b.first;
+    return a.second>b.second;
+}
+vector<int> TopK(vector<int>& arr, int k) {
+    vector<int> ans;
+    unordered_map<int,int> m;   
+    for(int i=0;i<arr.size();i++){
+        m[arr[i]]++;
+    }
+    vector<pair<int, int> > freq_arr(m.begin(), m.end());
+    sort(freq_arr.begin(),freq_arr.end(),comp);
+    for(int i=0;i<k;i++){
+        ans.push_back(freq_arr[i].first);
+    }
+    return ans;
+}
