@@ -1,0 +1,23 @@
+
+//User function template in C++
+
+// A1[] : the input array-1
+// N : size of the array A1[]
+// A2[] : the input array-2
+// M : size of the array A2[]
+void sortA1ByA2(int A1[], int N, int A2[], int M) 
+{
+    map<int,int> m;
+    for(int i=0;i<N;i++){
+        m[A1[i]]++;
+    }
+    int pos=0;
+    for(int i=0;i<M;i++){
+        while(m[A2[i]]-->0){
+            A1[pos++]=A2[i];
+        }
+    }
+    for(auto it : m) {
+        while(it.second-- > 0) A1[pos++] = it.first;
+    }
+} 
