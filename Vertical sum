@@ -1,0 +1,24 @@
+/*Complete the function below
+Node is as follows:
+struct Node{
+int data;
+Node *left,*right;
+};
+*/
+void verticalSumUtil(Node *root,int hd,map<int,int> &m){
+    if(root==NULL){
+        return;
+    }
+    verticalSumUtil(root->left,hd-1,m);
+    m[hd]+=root->data;
+    verticalSumUtil(root->right,hd+1,m);
+}
+vector <int> verticalSum(Node *root) {
+    vector<int> ans;
+    map<int,int>m;
+    verticalSumUtil(root,0,m);
+    for(auto i=m.begin();i!=m.end();i++){
+        ans.push_back(i->second);
+    }
+    return ans;
+}
