@@ -1,0 +1,26 @@
+
+/* A binary tree node
+struct Node
+{
+    int data;
+    Node* left, * right;
+}; */
+
+/*you are required to
+complete this function */
+bool hasPathSum(Node *node, int sum) {
+    // Your code here
+    if(node==NULL)
+        return (sum==0);
+    else{
+        bool ans=false;
+        int subSum=sum-node->data;
+        if(subSum==0 && node->left==NULL && node->right==NULL)
+            return true;
+        if(node->left)
+            ans=ans||hasPathSum(node->left,subSum);
+        if(node->right)
+            ans=ans||hasPathSum(node->right,subSum);
+        return ans;
+    }
+}
