@@ -1,0 +1,37 @@
+
+/* A binary tree node
+struct Node
+{
+    int data;
+    Node* left, * right;
+}; */
+
+/* Should return minimum distance between a and b
+   in a tree with given root*/
+
+int findLevel(Node *root,int a,int l){
+    if(root==NULL)
+        return -1;
+    if(root->data==a)
+        return l;
+    int left=findLevel(root->left,a,l+1);
+    if(left==-1)
+        return findLevel(root->right,a,l+1);
+    return left;
+}
+Node* findLCA(Node* root,int a,int b){
+    if(root==NULL)
+        return NULL;
+    if(root->data==a||root->data==b)
+        return root;
+    Node* left_lca=findLCA(root->left,a,b);
+    Node* right_lca=findLCA(root->right,a,b);
+    
+    if(left_lca && right_lca)
+        return root;
+    return left_lca!=NULL?left_lca:right_lca;
+}
+int findDist(Node* root, int a, int b) {
+    int x=findLCA(root,a,b)->data;
+    return findLevel(root,a,0)+findLevel(root,b,0)-2*findLevel(root,x,0);
+}
