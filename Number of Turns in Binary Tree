@@ -1,0 +1,69 @@
+//User function template for C++
+/*
+Structure of the node of the tree is as follows 
+struct Node {
+    struct Node* left, *right;
+    int data;
+};
+*/
+// function should return the number of turns required to go from first node to second node
+Node* findLCA(Node* root, int n1,int n2){
+    if(root==NULL)
+        return NULL;
+    if(root->data==n1 || root->data==n2)
+        return root;
+    Node* leftLca=findLCA(root->left,n1,n2);
+    Node* rightLca=findLCA(root->right,n1,n2);
+    
+    if(leftLca && rightLca)
+        return root;
+    return leftLca==NULL?rightLca:leftLca;
+}
+bool countTurn(Node* root,int key,bool turn, int *count){
+    if(root==NULL)
+        return false;
+    if(root->data==key)
+        return true;
+    if(turn==true){
+        if(countTurn(root->left,key,turn,count))
+            return true;
+        if(countTurn(root->right,key,!turn,count)){
+            *count+=1;
+            return true;
+        }
+    }else{
+        if(countTurn(root->right,key,turn,count))
+            return true;
+        if(countTurn(root->left,key,!turn,count)){
+            *count+=1;
+            return true;
+        }
+    }
+    return false;
+}
+int NumberOFTurns(struct Node* root, int first, int second)
+{
+    Node *LCA=findLCA(root,first,second);
+    if(LCA==NULL)
+        return -1;
+    int Count=0;
+    if(LCA->data!=first && LCA->data!=second){
+        if(countTurn(LCA->right, second, false, &Count) 
+            || countTurn(LCA->left, second, true, &Count)) 
+            ; 
+          
+        if (countTurn(LCA->left, first, true, &Count) 
+            || countTurn(LCA->right, first, false, &Count)) 
+            ; 
+        return Count + 1; 
+    }
+    if (LCA->data == first) { 
+        countTurn(LCA->right, second, false, &Count); 
+        countTurn(LCA->left, second, true, &Count); 
+        return Count; 
+    } else { 
+        countTurn(LCA->right, first, false, &Count); 
+        countTurn(LCA->left, first, true, &Count); 
+        return Count; 
+    }
+}
