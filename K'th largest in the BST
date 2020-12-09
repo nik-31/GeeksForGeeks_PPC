@@ -1,0 +1,29 @@
+
+/*The Node structure is defined as
+struct Node {
+    int data;
+    Node *left;
+    Node *right;
+
+    Node(int val) {
+        data = val;
+        left = right = NULL;
+    }
+};
+*/
+
+// return the Kth largest element in the given BST rooted at 'root'
+int kthLargestUtil(Node *root,int k,int *c){
+    if(root==nullptr)
+        return INT_MAX;
+    int left=kthLargestUtil(root->right, k, c);
+    if(left!=INT_MAX)
+        return left;
+    if(++*c==k)
+        return root->data;
+    return kthLargestUtil(root->left, k, c);
+}
+int kthLargest(Node *root, int k){
+    int c=0;
+    return kthLargestUtil(root,k,&c);
+}
