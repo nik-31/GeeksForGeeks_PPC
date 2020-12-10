@@ -1,0 +1,28 @@
+
+/*struct Node
+{
+	int data;
+	Node *left, *right;
+};*/
+
+
+Node *constructTree (int post[], int size){
+    Node *root=new Node(post[size-1]);
+    stack<Node *>s;
+    s.push(root);
+    for(int i=size-2;i>=0;i--){
+        Node *x=new Node(post[i]);
+        Node *temp=NULL;
+        while(s.size() && post[i]<s.top()->data){
+            temp=s.top();
+            s.pop();
+        }
+        if(temp!=NULL){
+            temp->left=x;
+        }else{
+            s.top()->right=x;
+        }
+        s.push(x);
+    }
+    return root;
+}
