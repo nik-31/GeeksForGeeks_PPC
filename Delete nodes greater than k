@@ -1,0 +1,24 @@
+/*The node structure
+struct Node {
+int data;
+Node * right, * left;
+};*/
+
+/*The function should return the root of the modified tree*/
+Node* buildTree(Node* root,int key){
+	if(!root)
+		return NULL;
+	if(root->data==key){
+		return root->left;
+	}
+	else if(root->data>key)
+		return buildTree(root->left,key);
+	else{
+		root->right=buildTree(root->right,key); 
+		return root;
+	}
+}
+Node* deleteNode(Node* root, int k){
+    root=buildTree(root,k);
+	return root; 
+}
