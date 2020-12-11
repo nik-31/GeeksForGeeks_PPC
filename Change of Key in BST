@@ -1,0 +1,60 @@
+/*
+Structure of the binary Search Tree is as
+struct node
+{
+	int key;
+	struct node *left, *right;
+};
+*/
+// your task is to complete the Function
+// Function is used to change a key value in the given BST
+// Note: Function should return root node to the new modified BST
+node* insertKey(node *root,int newVal){
+    if(root==NULL){
+        node *t=new node(newVal);
+        return t;
+    }
+    if(newVal<root->key)
+        root->left=insertKey(root->left,newVal);
+    else
+        root->right=insertKey(root->right,newVal);
+    return root;
+}
+node* minValueNode(node *root){
+    node* curr=root;
+    while(curr->left!=NULL){
+        curr=curr->left;
+    }
+    return curr;
+}
+node* deleteKey(node *root,int oldVal){
+    if(root==NULL)
+        return NULL;
+    if(oldVal<root->key){
+        root->left=deleteKey(root->left,oldVal);
+    }
+    else if(oldVal>root->key){
+        root->right=deleteKey(root->right,oldVal);
+    }else{
+        if(root->left==NULL){
+            node *temp=root->right;
+            free(root);
+            return temp;
+        }else if(root->right==NULL){
+            node *temp=root->left;
+            free(root);
+            return temp;
+        }
+        node* temp=minValueNode(root->right);  
+        root->key=temp->key;  
+        root->right=deleteKey(root->right,temp->key); 
+    }
+    return root;
+}
+struct node *changeKey(struct node *root, int oldVal, int newVal)
+{
+	// Code here
+	root=deleteKey(root,oldVal);
+	root=insertKey(root,newVal);
+	return root;
+}
