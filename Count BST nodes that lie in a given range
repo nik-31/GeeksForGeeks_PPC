@@ -1,0 +1,25 @@
+/*
+
+The structure of a BST node is as follows:
+
+struct Node {
+    int data;
+    Node* right;
+    Node* left;
+    
+    Node(int x){
+        data = x;
+        right = NULL;
+        left = NULL;
+    }
+};
+*/
+int getCountOfNode(Node *root, int l, int h)
+{
+    int t=0;
+    if(root==NULL)
+        return t;
+    if(root->data>=l&&root->data<=h)
+        t++;
+    return t+getCountOfNode(root->left,l,h)+getCountOfNode(root->right,l,h);
+}
