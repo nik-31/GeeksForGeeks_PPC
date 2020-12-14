@@ -1,0 +1,49 @@
+void insertionSort(vector<int>& v, int n)
+{
+    int i, key, j;
+    for (i = 1; i < n; i++) {
+        key = v[i];
+        j = i - 1;
+        while (j >= 0 && v[j] > key) {
+            v[j + 1] = v[j];
+            j = j - 1;
+        }
+        v[j + 1] = key;
+    }
+}
+void inorder(Node* root, vector<int>& v)
+{
+    if (!root)
+        return;
+    inorder(root->left, v);
+    v.push_back(root->data);
+    inorder(root->right, v);
+}
+void find(Node* root, int res, int res2)
+{
+    if (!root) {
+        return;
+    }
+    find(root->left, res, res2);
+    if (root->data == res) {
+        root->data = res2;
+    }
+    else if (root->data == res2) {
+        root->data = res;
+    }
+    find(root->right, res, res2);
+}
+
+struct Node *correctBST( struct Node* root ){
+    vector<int> v;
+    inorder(root, v);
+    vector<int> v1 = v;
+    insertionSort(v, v.size());
+    for (int i = 0; i < v.size(); i++) {
+        if (v[i] != v1[i]) {
+            find(root, v1[i], v[i]);
+            break;
+        }
+    }
+    return root;
+}
