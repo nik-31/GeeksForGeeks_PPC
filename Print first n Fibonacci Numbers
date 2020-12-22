@@ -1,0 +1,12 @@
+//User function template for C++
+
+// n : given integer value
+// print the nth fibb number in the function 
+vector<long long> printFibb(int n) {
+    //code here
+    vector<long long> v(n);
+    v[0]=1,v[1]=1;
+    for(int i=2;i<n;i++)
+        v[i]=v[i-2]+v[i-1];
+    return v;
+}
