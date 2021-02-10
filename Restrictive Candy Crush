@@ -1,0 +1,71 @@
+/*Given a string S and an integer K, the task is to reduce the string by applying the following operation:
+Choose a group of K consecutive identical characters and remove them. The operation can be performed any number of times until it is no longer possible.
+
+Example 1:
+
+Input:
+K = 2
+S = "geeksforgeeks"
+Output:
+gksforgks
+Explanation:
+Modified String after each step: 
+"geegsforgeeks" -> "gksforgks"
+Example 2:
+
+Input:
+K = 2
+S = "geegsforgeeeks" 
+Output:
+sforgeks
+Explanation:
+Modified String after each step:
+"geegsforgeeeks" -> "ggsforgeks" -> "sforgeks"
+Your Task:  
+You don't need to read input or print anything. Complete the function Reduced_String() which takes integer K and string S as input parameters and returns the reduced string.
+
+Expected Time Complexity: O(|S|)
+Expected Auxiliary Space: O(|S|)
+
+Constraints:
+1 ≤ |S| ≤ 105
+1 ≤ K ≤ |S|
+*/
+
+
+string Reduced_String(int k,string s){
+        stack<pair<char,int>> st; 
+        int n=s.length();
+        int i = 0; 
+        for (i = 0; i < n; i++) { 
+            char x = s[i]; 
+            if (st.size() > 0 && st.top().second == k) { 
+                char curr = st.top().first;  
+                while (st.size() > 0 && st.top().first == curr) 
+                    st.pop(); 
+            } 
+            if (st.size() > 0 && st.top().first == x) {
+                st.push({x, st.top().second +1}); 
+            } 
+            else { 
+                st.push({x,1});
+            } 
+        } 
+ 
+        if (st.size() > 0 && st.top().second == k) { 
+            char curr = st.top().first;
+            while (st.size() > 0 && st.top().first == curr) 
+                st.pop(); 
+        } 
+        string stack_string = ""; 
+        while (st.size() > 0) {
+            stack_string += st.top().first; 
+            st.pop();
+        }
+  
+        string reduced_string = ""; 
+        for (i = stack_string.length() - 1; i >= 0; i--) 
+            reduced_string += stack_string[i]; 
+  
+        return reduced_string; 
+    }
