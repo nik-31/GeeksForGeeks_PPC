@@ -1,0 +1,67 @@
+/*
+Given an unlabelled tree of N nodes numbered from 0 to N - 1 rooted at 0th node, you have to label each vertex of this tree such that if the label of ith node is x and there are m nodes in the subtree of this node then there must be exactly floor( (m-1) / 2) nodes whose label must be smaller than x in the subtree of this node.
+You are given a parent array p[ ] where p[i] is the parent of ith node for 1 ≤ i < N.
+Return an array res[ ] where res[i] is the label of the ith node. If there are multiple solutions, return any.
+All the labels must be distinct and value of a label should be less than or equal to 105 and greater than or equal to 1.
+Note: p[0] = -1 as 0th node is root.
+
+Example 1:
+
+Input:
+N = 5
+p[] = {-1, 0, 1, 0, 1}
+Output:
+1
+Explanation:
+The tree is:
+           0
+          / \
+         1   3
+        / \
+       2   4
+We will label the vertices as follows:
+res[] = {3, 2, 1, 4, 5}
+
+Your Task:
+You don't need to read input or print anything. Your task is to complete the function labelTree( ) which takes the number of nodes N and array p[ ] as input parameters and returns an array consisting of labels of all nodes. If returned labels satisfy all conditions then driver will print 1, else driver will print -1.
+
+Constraints:
+1 ≤ N ≤ 5000
+
+*/
+
+class Solution{
+    public:
+    vector<int> Util(int cur, vector<vector<int>> &adj){
+        if(adj[cur].size() == 0){
+            vector<int> a;
+            a.push_back(cur);
+            return a;
+        }
+        vector<int> a, temp;
+        for(int i = 0; i < adj[cur].size(); i++){
+            temp = Util(adj[cur][i], adj);
+            reverse(temp.begin(), temp.end());
+            while(temp.size() > 0){
+                a.push_back(temp.back());
+                temp.pop_back();
+            }
+        }
+        int sz = (int )a.size();
+        sz /= 2;
+        a.insert(a.begin() + sz, cur);
+        return a;
+    }
+    vector<int> labelTree(int N, vector<int> p){
+        vector<vector<int>> adj(N);
+        for(int i = 1; i < N; i++){
+            adj[p[i]].push_back(i);
+        }
+        vector<int> temp = Util(0, adj);
+        vector<int> res(N);
+        for(int i = 0; i < N; i++){
+            res[temp[i]] = i + 1;
+        }
+        return res;
+    }
+};
