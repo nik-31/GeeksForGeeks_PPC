@@ -1,0 +1,59 @@
+/*Given an array A[] of N elements.
+
+In one operation, you can select any element of the array and multiply that element by any prime number.
+
+You can do any number of operations.
+
+Calculate the minimum number of operations required such that for every i (1<=i<=N),  A[i] is divisible by i.
+
+Example:
+
+Input: 
+N = 5
+A[] = {2,2,3,2,1}
+Output: 
+2
+Explanation:
+In 1st operation, we will multiply 4th element by 2 
+modified array A[] = {2,2,3,4,1}
+In 2nd operation, we will multiply 5th element by 5
+modified array A[] = {2,2,3,4,5}
+For every i=1 to N, A[i] is divisible by i
+Now, the condition is satisfied.
+Your Task:
+You don't need to read input or print anything. Your task is to complete the function minOperations() which takes the integer N and the array A[] as input parameters and returns the minimum number of operations required to satisfy the above conditions.
+
+Constraints:
+
+1 < N < 105
+
+1 < A[i] < N
+
+*/
+
+//User function Template for C++
+class Solution
+{
+    public:
+    int minOperations(int N, vector<int> A){
+        int prime[N+1]={0};
+        prime[1]=1;
+        for(int i=2;i<=N;i++){
+            if(prime[i]==0){
+                for(int j=1;j*i<=N;j++){
+                    prime[j*i]=i;
+                }
+            }
+        }
+        int ans=0;
+        for(int i=0;i<A.size();i++){
+            int g=__gcd(A[i],i+1);
+            int y=(i+1)/g;
+            while(y>1){
+                ans++;
+                y/=prime[y];
+            }
+        }
+        return ans;
+    }
+};
