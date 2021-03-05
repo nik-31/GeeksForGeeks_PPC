@@ -1,0 +1,78 @@
+N boxes are arranged in a straight line on a table. Each box has an integer label on it and also contains an integer value inside it. You are also given two integers cost1 and cost2. The score of a sequence of boxes is calculated as follows: 
+1.    If there are no boxes on the table, then the score is 0. Otherwise, the initial score is the product of cost1 and the integer contained inside the first box from left. 
+2.    For every box left on the table(traverse from left to right) except the first box from the left, we add 
+
+a.    The product of cost1 and the integer inside the current box to the score, if the labels on the current box and the box present to its left are different.
+b.    The product of cost2 and the integer inside the current box to the score, if the labels on the current box and the box present to its left are the same.
+
+Geek wants to remove some boxes (possibly Zero or all) so that the score is maximum possible.
+
+Example 1:
+
+Input:
+N = 4, cost1 = 2, cost2 = 3 
+values[] = { 3, 3, 2, -1 } 
+labels[] = { 1, 2, 2, 3 }
+Output:
+18
+Explanation:
+Geek can remove the last box. The score 
+after removal will be (cost1*values[0]) + 
+(cost1*values[1]) + (cost2*values[2]) = 18, 
+which the maximum possible score.
+Example 2:
+
+Input: 
+N = 4, cost1 = 2, cost2 = 3 
+values[] = { -1, -2, -6, -1 } 
+labels[] = { 1, 2, 2, 3 }
+Output:
+0
+Explanation: 
+To get the maximum score, Geek should 
+remove all the boxes.
+Your Task:
+Complete the function maximumScore() which takes the integers N, cost1, cost2 and the two arrays values and labels as input parameters, and returns the maximum possible score Geek can attain after removing some boxes
+
+Constraints:
+1 ≤ N ≤ 105
+-105 ≤ cost1, cost2, values[i] ≤ 105
+1 ≤ labels[i] ≤ 109
+
+
+class Solution {
+  public:
+    long long int maximumScore(int N, int cost1, int cost2, vector<int> values,
+                               vector<int> labels) {
+        map<int, long long int> dp;
+
+        for (int i = 0; i < N; i++) {
+            dp[labels[i]] = -1e16;
+        }
+        dp[0] = 0;
+        int firstMax = 0, secondMax = 0;
+
+        for (int i = 0; i < N; i++) {
+            dp[labels[i]] =
+                max(dp[labels[i]] + cost2 * 1LL * values[i], dp[labels[i]]);
+
+            if (labels[i] != firstMax) {
+                dp[labels[i]] =
+                    max(dp[labels[i]], dp[firstMax] + values[i] * 1LL * cost1);
+            } else {
+                dp[labels[i]] =
+                    max(dp[labels[i]], dp[secondMax] + values[i] * 1LL * cost1);
+            }
+
+            if (labels[i] != firstMax) {
+                if (dp[labels[i]] > dp[firstMax]) {
+                    secondMax = firstMax;
+                    firstMax = labels[i];
+                } else if (dp[labels[i]] > dp[secondMax]) {
+                    secondMax = labels[i];
+                }
+            }
+        }
+        return dp[firstMax];
+    }
+};
