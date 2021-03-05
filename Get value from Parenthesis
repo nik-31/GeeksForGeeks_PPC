@@ -1,0 +1,96 @@
+/*
+Given a parenthesis string consisting of ' ( ' , ' ) ' and integers (integers will be in the range from -109 to 109), you have to get the value of the string by following rules:
+
+There is always an integer between an opening and a closing parenthesis.
+(x) gives absolute value of x.
+If there are consecutive balanced parenthesis, then you have to alternatively add and subtract them, i.e. if the string is (x)(y)((z)) then value of this string will be - ( value got from (x) ) - ( value got from (y) ) + ( value got from ((z)) )
+Example 1:
+
+Input:
+s = "(((1)))"
+Output:
+1
+Explanation: Steps:
+1. (((1))) = ((abs(1))) = ((1))
+2. ((1)) = (abs(1)) = (1)
+3. (1) = abs(1) = 1
+Example 2:
+
+Input:
+s = "((-1)(3))"
+Output:
+2
+Explanation: Steps:
+1. ((-1)(3)) = (abs(-1) - abs(3)) = 
+   (1 - 3) = (-2)
+2. (-2) = abs(-2) = 2
+
+Your Task:
+You don't need to read input or print anything. Your task is to complete the function getValue() which takes the string s as input parameter and returns the value got by solving parenthesis.
+
+Constraints:
+1 ≤ |s| ≤ 106
+*/
+
+//User function Template for C++
+
+class Solution{
+    public:
+    long long getValue(string s){
+        stack<long long> st;
+        for(int i = 0; i < s.length(); i++){
+            if(s[i] == '('){
+                st.push(1e18);
+            }
+            else if(s[i] == ')'){
+                long long cur = 0;
+                long long val = 0;
+                while(st.top() < 1e18){
+                    if(cur % 2){
+                        val -= (long long )st.top();
+                        st.pop();
+                    }
+                    else{
+                        val += (long long )st.top();
+                        st.pop();
+                    }
+                    cur++;
+                }
+                st.pop();
+                st.push(abs(val));
+            }
+            else{
+                string r;
+                while(s[i] != ')' && s[i] != '('){
+                    r.push_back(s[i]);
+                    i++;
+                }
+                long long val;
+                if(r[0] == '-'){
+                    r.erase(r.begin());
+                    val = stoi(r);
+                    val = -val;
+                }
+                else{
+                    val = stoi(r);
+                }
+                st.push(val);
+                i--;
+            }
+        }
+        long long cur = 0;
+        long long val = 0;
+        while(st.size()){
+            if(cur % 2){
+                val -= (long long )st.top();
+                st.pop();
+            }
+            else{
+                val += (long long )st.top();
+                st.pop();
+            }
+            cur++;
+        }
+        return abs(val);
+    }
+};
